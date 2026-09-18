@@ -1,0 +1,13 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Binary assets
+*.stl binary
+*.step binary
+*.stp binary
+*.f3d binary
+*.mp4 binary
+*.png binary
+
+# 計測データは改行コードを含めて原本のまま保持（README の MD5 一致の記述を守るため）
+*.csv -text

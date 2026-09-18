@@ -1,0 +1,17 @@
+.DS_Store
+
+# 配置前の素材（公開対象外）
+*.zip
+*.pdf
+/Experiment Jig/
+/assembly/
+/assemly_jig/
+
+# 開発環境のローカル設定・ビルド成果物
+.claude/
+.vscode/
+.idea/
+.pio/
+__pycache__/
+*.pyc
+.venv/

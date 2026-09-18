@@ -1,0 +1,330 @@
+@startuml aaa-hand-control
+
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+hide empty members
+
+' =========================================================
+' Enums
+' =========================================================
+
+enum MuscleID {
+  IndexFDP = 0
+  MiddleFDP
+  RingFDP
+  PinkyFDP
+  FPL
+  APM
+  OPM
+  APB
+  EIP
+  EDM
+  ED
+  EPB
+  EPL
+  APL
+  FCR
+  FCU
+  ECRL
+  ECU
+  SPN
+  BPB
+  PQ
+  PT
+}
+
+enum MotionType {
+  Relax
+  Grasp
+}
+
+' =========================================================
+' Muscle class (muscle.h) — flattened, no Finger/Wrist/Forearm subclasses
+' =========================================================
+
+class Muscle {
+  # motorId : uint8_t
+  # current : int16_t
+  # position : int32_t
+  # currentLimit : uint16_t
+  # endlessWinding : bool
+  # spec : const MuscleSpec*
+  --
+  # changeVerocity(profile_v : uint32_t)
+  + moveToWithDuration(pos_e, time, sync)
+  + checkCurrent()
+  + checkPosition()
+  + bindSpec(s : const MuscleSpec*)
+  + resetCurrentLimit()
+  + setCurrentLimit(limit : uint16_t)
+  + setPosition(recv_position : float)
+  + setId(id : uint8_t)
+  + setEndlessWinding(v : bool)
+  + getCurrent() : float
+  + getCurrentLimit() : uint16_t
+  + getPosition() : int32_t
+  + getId() : uint8_t
+  + isEndlessWinding() : bool
+  + getForwardLimit() : int32_t
+  + getBackwardLimit() : int32_t
+  + getLowContractionPos() : int32_t
+  + getHighContractionPos() : int32_t
+  + getHighContractionFingerPos() : int32_t
+  + getInitialPos() : int32_t
+  + getGraspPos() : int32_t
+}
+
+' =========================================================
+' Static attribute table (muscle_specs.h)
+' =========================================================
+
+class MuscleSpec <<struct>> {
+  currentLimit : uint16_t
+  forwardLimit : int32_t
+  backwardLimit : int32_t
+  lowContraction : int32_t
+  highContraction : int32_t
+  highContractionFinger : int32_t
+  initialPos : int32_t
+  graspPos : int32_t
+}
+
+' =========================================================
+' Dynamixel SyncRead / SyncWrite data structs (DXLSetup.h)
+' =========================================================
+
+class sr_data_t <<struct>> {
+  present_current : int16_t
+  present_velocity : int32_t
+  present_position : int32_t
+}
+
+class sw_current_velocity_t <<struct>> {
+  goal_current : int16_t
+  goal_velocity : int32_t
+}
+
+class sw_position_t <<struct>> {
+  goal_position : int32_t
+}
+
+class sw_op_mode_t <<struct>> {
+  mode : uint8_t
+}
+
+' =========================================================
+' Module packages (header/cpp pairs grouped as logical units)
+' =========================================================
+
+package "config" {
+  class "<<module>>\nconfig" as M_CONFIG {
+    + SERVO_NUM, NORMAL_SERVO, INFINITE_SERVO_NUM
+    + READ_PERIOD, TIMEOUT, MAX_ROWS
+    + ESYNC_PIN, FORCE_GAGE_PIN
+  }
+}
+
+package "muscle_specs" {
+  class "<<module>>\nmuscle_specs" as M_SPECS {
+    + muscle_specs[SERVO_NUM] : const MuscleSpec
+  }
+}
+
+package "logging" {
+  class "<<module>>\nlogging" as M_LOG {
+    + printCsvHeader(s : Stream&)
+  }
+}
+
+package "DXLSetup" {
+  class "<<module>>\nDXLSetup" as M_DXL {
+    + dxl : Dynamixel2Arduino
+    + sw_current_velocity, sw_position, sw_op_mode
+    + sr
+    --
+    + initDXL()
+    + waitForSerialInput()
+  }
+}
+
+package "muscle" {
+  class "<<module>>\nmuscle" as M_MUSCLE {
+    + IndexFDP..APL : Muscle
+    + FCR..ECU : Muscle
+    + SPN, BPB, PT, PQ : Muscle
+    + fingers[14], wrists[4], forearms[4]
+    + muscles[SERVO_NUM]
+    --
+    + setMotorID()
+    + initCurrentLimit()
+    + fillInitialPositions(out)
+    + fillLowContractionPos(out)
+    + fillHighContractionPos(out)
+    + fillHighContractionFingerPos(out)
+    + fillGraspPositions(out)
+  }
+}
+
+package "control" {
+  class "<<module>>\ncontrol" as M_CTRL {
+    + dxlModeSetup(mode)
+    + initGoalCurrent(flags)
+    + computeEAngles(e_angles, goal_row)
+    + sweepRunGoalPosition(...)
+    + currentAndPositionCheck()
+    + getCurrentAndPositionArray(start)
+    + torqueOnExceptEndless(useEndlessMecha)
+    + servoStop()
+    + fix()
+  }
+}
+
+package "coop_graph" {
+  class "<<module>>\ncoop_graph" as M_COOP {
+    + setWristCoopFlags(ID, flags)
+    + applyGraspCurrent(ID)
+    + propagateCoopFlags(flags)
+  }
+}
+
+package "motion" {
+  class "<<module>>\nmotion" as M_MOTION {
+    + setControlMode(flags)
+    + relaxMotion(e_angles, pos_e)
+    + coopGraspMotion(e_angles, flags, time)
+  }
+}
+
+package "teaching" {
+  class "<<module>>\nteaching" as M_TEACH {
+    + teachingMode(useEndlessMecha)
+    - initEndlessWinding()
+    - torqueOffAll()
+    - applyPoseCurrent()
+    - readCommand() : String
+    - runTeachCycle(useEndlessMecha)
+    - promptContinueTeaching() : bool
+    - writePosToSD(pos)
+  }
+}
+
+package "tests" {
+  class "<<module>>\ntests" as M_TESTS {
+    + randomize(bias) : int16_t
+    + testRandomFE(symbol, target)
+    + testRandomRU(symbol, target)
+    + esyncRead() : bool
+    + contractionTest(mode) : bool
+    + fingerDriveTest(finger_id) : bool
+    + randomTest(mode) : bool
+    + unitDriveTest() : bool
+    + directionTest(motor_id) : bool
+  }
+}
+
+package "SDControl" {
+  class "<<module>>\nSDControl" as M_SD {
+    + sd : SdFs
+    + dataFile : FsFile
+    + fileName : String
+    + playback_positions[MAX_ROWS][SERVO_NUM]
+    --
+    + initSD() : bool
+    + chooseFile() : bool
+    + initFileName() : bool
+    + writeArrayToSD(array)
+    + readAllData() : uint8_t
+    + listFiles()
+    + deleteFile()
+  }
+}
+
+package "main" {
+  class "<<module>>\nmain" as M_MAIN {
+    + setup()
+    + loop()
+    + Start(row_cnt, motion)
+    + COMMANDS[] : dispatch table
+    - cmdTeach / cmdStart / cmdDelete / ...
+  }
+}
+
+' =========================================================
+' External libraries
+' =========================================================
+
+class Dynamixel2Arduino <<external>>
+class SdFs <<external>>
+
+' =========================================================
+' Relationships
+' =========================================================
+
+' muscle module holds Muscle instances and category views
+M_MUSCLE ..> Muscle : "creates 22 instances"
+M_MUSCLE o--> "SERVO_NUM" Muscle : muscles[]
+M_MUSCLE ..> MuscleID : uses
+M_MUSCLE ..> M_SPECS : bindSpec / fill*
+
+' Each Muscle is bound to a MuscleSpec row at init time
+Muscle o--> MuscleSpec : spec
+M_SPECS *--> "SERVO_NUM" MuscleSpec
+
+' config feeds SERVO_NUM and friends everywhere
+M_SPECS ..> M_CONFIG
+M_MUSCLE ..> M_CONFIG
+M_DXL ..> M_CONFIG
+M_SD ..> M_CONFIG
+M_LOG ..> M_CONFIG
+
+' DXLSetup owns the Dynamixel driver and sync data structs
+M_DXL o--> Dynamixel2Arduino : dxl
+M_DXL *--> "SERVO_NUM" sr_data_t
+M_DXL *--> "SERVO_NUM" sw_current_velocity_t
+M_DXL *--> "SERVO_NUM" sw_position_t
+M_DXL *--> "SERVO_NUM" sw_op_mode_t
+
+' Muscle talks to the Dynamixel driver directly
+Muscle ..> Dynamixel2Arduino : uses
+
+' control depends on DXL, muscle, SDControl (via control.h)
+M_CTRL ..> M_DXL
+M_CTRL ..> M_MUSCLE
+M_CTRL ..> M_SD
+
+' coop_graph depends on muscle + DXL (SyncWrite channels)
+M_COOP ..> M_MUSCLE : MuscleID
+M_COOP ..> M_DXL : sw_current_velocity
+
+' motion depends on DXL, control, muscle, coop_graph
+M_MOTION ..> M_DXL
+M_MOTION ..> M_CTRL
+M_MOTION ..> M_MUSCLE
+M_MOTION ..> M_COOP
+M_MOTION ..> MotionType
+
+' teaching depends on control (sweep helpers, torqueOnExceptEndless) and SDControl
+M_TEACH ..> M_CTRL
+M_TEACH ..> M_MUSCLE
+M_TEACH ..> M_SD : writeArrayToSD
+M_TEACH ..> M_DXL
+
+' Tests depend on control, motion, muscle
+M_TESTS ..> M_CTRL
+M_TESTS ..> M_MOTION
+M_TESTS ..> M_MUSCLE
+
+' SDControl
+M_SD o--> SdFs : sd
+
+' Main wires everything
+M_MAIN ..> M_DXL : initDXL
+M_MAIN ..> M_MUSCLE : setMotorID, initCurrentLimit
+M_MAIN ..> M_CTRL : Start / fix / servoStop
+M_MAIN ..> M_MOTION : coopGraspMotion / relaxMotion
+M_MAIN ..> M_TEACH : teachingMode
+M_MAIN ..> M_TESTS : cmd* handlers
+M_MAIN ..> M_SD : cmd* handlers
+M_MAIN ..> M_LOG : printCsvHeader
+
+@enduml

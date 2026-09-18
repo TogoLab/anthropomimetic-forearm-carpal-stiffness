@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+title: "Anthropomimetic Soft Robotic Forearm with Independently Articulated Carpal Bones"
+message: "If you use this open-hardware project in academic or educational work, please cite the associated paper (see preferred-citation)."
+type: dataset
+
+authors:
+  - family-names: Togo
+    given-names: Shunta
+    affiliation: "The University of Electro-Communications, Japan"
+    orcid: "https://orcid.org/0000-0002-3464-0765"
+
+repository-code: "https://github.com/TogoLab/anthropomimetic-forearm-carpal-stiffness"
+
+keywords:
+  - anthropomimetic robotics
+  - soft robotics
+  - robotic wrist
+  - carpal bones
+  - joint stiffness
+  - open hardware
+
+license: CC-BY-4.0
+
+date-released: 2026-XX-XX  # TODO
+
+preferred-citation:
+  type: article
+  title: "Anthropomimetic Soft Robotic Forearm with Independently Articulated Carpal Bones Enabling Human-Like Adaptive Stiffness Modulability"
+  authors:
+    - family-names: Obata
+      given-names: Yoshinobu
+      affiliation: "The University of Electro-Communications, Japan"
+    - family-names: Jiang
+      given-names: Yinlai
+      affiliation: "The University of Electro-Communications, Japan"
+      orcid: "https://orcid.org/0000-0002-0825-6444"
+    - family-names: Yokoi
+      given-names: Hiroshi
+      affiliation: "The University of Electro-Communications, Japan"
+    - family-names: Togo
+      given-names: Shunta
+      affiliation: "The University of Electro-Communications, Japan"
+      orcid: "https://orcid.org/0000-0002-3464-0765"
+  year: 2026
+  doi: "10.48550/arXiv.XXXX.XXXXX"  # TODO
+  url: "https://arxiv.org/abs/XXXX.XXXXX"  # TODO
+  journal: "arXiv"

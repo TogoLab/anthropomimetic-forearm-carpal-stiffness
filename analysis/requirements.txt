@@ -1,0 +1,13 @@
+# Verified with Python 3.12.3 on Ubuntu (Linux 6.14).
+# These are the exact versions used to produce the figures in the paper.
+numpy==2.3.1
+pandas==2.3.1
+scipy==1.16.0
+matplotlib==3.10.3
+japanize-matplotlib==1.1.3
+
+# Only for the two-way ANOVA / harmonic nested-F scripts
+# (stiffness_ellipse/direction_anova_finger_vs_combined.py,
+#  stiffness_ellipse/direction_harmonic_finger_vs_combined.py).
+# The permutation test reported in the paper does not need it.
+statsmodels==0.14.6
