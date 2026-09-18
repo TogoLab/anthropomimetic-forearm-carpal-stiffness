@@ -4,8 +4,7 @@ Please check the applicable license for each file or directory before use.
 Summary of licenses:
 
 1. Bone (human anatomy) models
-   - Files: /cad/bone_*, /stl/bone_* (EXCLUDING /cad/bone_ellipsoidal_carpal_*
-     and /stl/bone_ellipsoidal_carpal_*, which are listed in item 2)
+   - Files: /cad/bone_*, /stl/bone_*
    - License: Creative Commons Attribution-ShareAlike 2.1 Japan (CC BY-SA 2.1 JP)
    - Attribution requirement: Please provide appropriate credit (e.g., cite the associated paper and/or include this repository URL).
    - Share-alike requirement: Modified or redistributed versions must be released under the same license.
@@ -13,8 +12,8 @@ Summary of licenses:
      BodyParts3D / Life Science Integrated Database Center
      https://lifesciencedb.jp/bp3d/
 
-2. Original design parts (geometric ellipsoidal skeleton, motor tower, jigs, and other non-anatomical components)
-   - Files: /cad/bone_ellipsoidal_carpal_*, /cad/jig_*, /cad/exp_*, /cad/tower_*, /cad/soft_tissue_*,
+2. Original design parts (motor tower, soft tissue, assembly and experimental jigs)
+   - Files: /cad/tower_*, /cad/soft_tissue_*, /cad/jig_*, /cad/exp_*,
      and the corresponding files under /stl/
    - License: Creative Commons Attribution 4.0 International (CC BY 4.0)
    - Attribution requirement: Please provide appropriate credit (e.g., cite the associated paper and/or include this repository URL).
