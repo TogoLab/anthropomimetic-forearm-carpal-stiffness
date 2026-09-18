@@ -24,8 +24,9 @@ https://doi.org/TODO
 analysis/   Wrist stiffness ellipse fitting and carpal motion analysis code with measured data, Python
 firmware/   Muscle (Dynamixel) control firmware for the robotic forearm, PlatformIO
 cad/        CAD files of the forearm and the experimental/assembly jigs (STEP, F3D)
-stl/        STL files for 3D printing (carpal bones, ligament jigs, fingertip molds)
+stl/        STL files for 3D printing (bones, TFCC, motor tower, assembly and experimental jigs)
 media/      Supplementary video
+licenses/   Full text of the applicable licenses (CC BY 4.0, CC BY-SA 2.1 JP)
 ```
 
 ---
@@ -38,9 +39,10 @@ media/      Supplementary video
 
 ## License
 
-All contents of this repository (CAD files, STL files, firmware, analysis code, and supplementary media) are original works by the authors and are provided under the **Creative Commons Attribution 4.0 International License (CC BY 4.0)**.  
-When using the data, please provide appropriate credit (e.g., cite the associated paper and/or include this repository URL).  
-The full text of the license is in `LICENSE.txt`.
+Multiple licenses apply to different parts of this repository.  
+The bone models are derived from **BodyParts3D** (Life Science Integrated Database Center) and are distributed under **CC BY-SA 2.1 JP**; all other materials are original works by the authors and are distributed under **CC BY 4.0**.  
+Please make sure to check the license associated with each file before use.  
+For details, see `LICENSE.txt` and the contents of the `licenses/` directory.
 
 ---
 
