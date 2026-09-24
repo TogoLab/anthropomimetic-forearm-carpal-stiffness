@@ -21,7 +21,8 @@
 | --- | --- | --- |
 | 骨（手根骨・中手骨・指節骨・橈骨・尺骨）、爪 | 光造形（SLA）／White Resin, Formlabs | `stl/bone_*.stl` |
 | 三角線維軟骨（TFCC） | 熱溶解積層（FDM）／TPU | `stl/soft_tissue_tfcc.stl` |
-| ベースプレート・モータタワー | 熱溶解積層（FDM）／PolyLite ASA, Polymaker | `stl/tower_*.stl` |
+| 指先モールド | 光造形（SLA）／White Resin, Formlabs | `stl/mold_*.stl` |
+| ベースプレート・モータタワー・プーリ | 熱溶解積層（FDM）／PolyLite ASA, Polymaker | `stl/tower_*.stl` |
 | 組立治具（靭帯長・手根骨） | 熱溶解積層（FDM）／PolyLite ASA, Polymaker | `stl/jig_*.stl` |
 | 実験治具（上腕固定・手部固定・フォースゲージ） | 熱溶解積層（FDM）／PolyLite ASA, Polymaker | `stl/exp_*.stl` |
 

@@ -21,7 +21,8 @@ See `stl/` (STL) and `cad/` (STEP, F3D) for the print data.
 | --- | --- | --- |
 | Bones (carpals, metacarpals, phalanges, radius, ulna) and fingernails | Stereolithography (SLA) / White Resin, Formlabs | `stl/bone_*.stl` |
 | Triangular fibrocartilage disc (TFCC) | Fused deposition modeling (FDM) / TPU | `stl/soft_tissue_tfcc.stl` |
-| Base plate and motor tower | Fused deposition modeling (FDM) / PolyLite ASA, Polymaker | `stl/tower_*.stl` |
+| Fingertip molds | Stereolithography (SLA) / White Resin, Formlabs | `stl/mold_*.stl` |
+| Base plate, motor tower and pulleys | Fused deposition modeling (FDM) / PolyLite ASA, Polymaker | `stl/tower_*.stl` |
 | Assembly jigs (ligament length, carpal bones) | Fused deposition modeling (FDM) / PolyLite ASA, Polymaker | `stl/jig_*.stl` |
 | Experimental jigs (humerus fixation, hand fixation, force gauge) | Fused deposition modeling (FDM) / PolyLite ASA, Polymaker | `stl/exp_*.stl` |
 
