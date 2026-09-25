@@ -13,8 +13,8 @@ This repository provides open-hardware data for an **anatomically accurate anthr
 
 Yoshinobu Obata, Yinlai Jiang, Hiroshi Yokoi, and Shunta Togo.  
 “Anthropomimetic Soft Robotic Forearm with Independently Articulated Carpal Bones Enabling Human-Like Adaptive Stiffness Modulability.”  
-arXiv:TODO [cs.RO], 2026.  
-https://doi.org/TODO
+arXiv:2609.29176 [cs.RO], 2026.  
+https://doi.org/10.48550/arXiv.2609.29176
 
 ---
 

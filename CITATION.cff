@@ -21,7 +21,7 @@ keywords:
 
 license: CC-BY-SA-2.1-JP and CC-BY-4.0
 
-date-released: 2026-XX-XX  # TODO
+date-released: 2026-09-24
 
 preferred-citation:
   type: article
@@ -42,6 +42,6 @@ preferred-citation:
       affiliation: "The University of Electro-Communications, Japan"
       orcid: "https://orcid.org/0000-0002-3464-0765"
   year: 2026
-  doi: "10.48550/arXiv.XXXX.XXXXX"  # TODO
-  url: "https://arxiv.org/abs/XXXX.XXXXX"  # TODO
+  doi: "10.48550/arXiv.2609.29176"
+  url: "https://arxiv.org/abs/2609.29176"
   journal: "arXiv"
